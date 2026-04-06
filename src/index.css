@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--on-surface-color, #34322f);
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  background:
+    radial-gradient(circle at 12% 18%, color-mix(in oklab, var(--surface-container-low-color, #f8f3ef) 82%, white 18%) 0 18%, transparent 45%),
+    radial-gradient(circle at 88% 82%, color-mix(in oklab, var(--surface-container-color, #f2ede9) 80%, white 20%) 0 15%, transparent 44%),
+    var(--bg-color, #fdf8f5);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-headline {
+  font-family: var(--font-heading, 'Noto Serif', serif);
+}
+
+.font-body,
+.font-label {
+  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+}
+
+.hero-floral {
+  position: absolute;
+  width: min(44vw, 22rem);
+  aspect-ratio: 1;
+  opacity: 0.45;
+  pointer-events: none;
+  filter: saturate(0.84);
+  background:
+    radial-gradient(circle at 20% 80%, color-mix(in oklab, var(--secondary-color) 20%, transparent) 0 26%, transparent 45%),
+    radial-gradient(circle at 70% 28%, color-mix(in oklab, var(--primary-color) 20%, transparent) 0 20%, transparent 42%),
+    radial-gradient(circle at 48% 52%, color-mix(in oklab, var(--accent-soft-color) 60%, white 40%) 0 35%, transparent 66%);
+}
+
+.hero-floral-top {
+  top: 0;
+  right: 0;
+  transform: translate(18%, -14%);
+}
+
+.hero-floral-bottom {
+  bottom: 0;
+  left: 0;
+  transform: translate(-20%, 16%) scaleX(-1);
+}
+
+.envelope-wrapper {
+  perspective: 1200px;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.4 / 1;
+}
+
+.envelope-shadow {
+  position: absolute;
+  inset: -0.9rem;
+  border-radius: 2rem;
+  background: color-mix(in oklab, var(--primary-color) 7%, transparent);
+  filter: blur(22px);
+  opacity: 0;
+  transition: opacity 0.7s;
+}
+
+.group:hover .envelope-shadow,
+.group.is-opening .envelope-shadow {
+  opacity: 1;
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in oklab, var(--outline-variant-color) 50%, transparent);
+  background-color: color-mix(in oklab, var(--surface-color) 95%, white 5%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 30px -5px color-mix(in oklab, var(--primary-color) 24%, transparent);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: color-mix(in oklab, var(--surface-container-low-color) 80%, white 20%);
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  transform-origin: top;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.8s;
+  z-index: 5;
+  border-bottom: 1px solid color-mix(in oklab, var(--primary-color) 10%, transparent);
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background-color: color-mix(in oklab, var(--surface-color) 94%, white 6%);
+  clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+  border: 1px solid color-mix(in oklab, var(--primary-color) 10%, transparent);
+}
+
+.invitation-card-inner {
+  position: absolute;
+  top: 5%;
+  left: 4%;
+  width: 92%;
+  height: 90%;
+  background: #ffffff;
+  z-index: 2;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  padding: 1.2rem;
+  display: flex;
+  border: 1px solid color-mix(in oklab, var(--surface-container-low-color) 70%, white 30%);
+  opacity: 0.5;
+}
+
+.invitation-card-frame {
+  border: 1px solid color-mix(in oklab, var(--primary-color) 14%, transparent);
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.card-note {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.62rem;
+  color: var(--secondary-color);
+  opacity: 0.75;
+}
+
+.card-divider {
+  width: 4rem;
+  height: 1px;
+  margin: 1.15rem 0;
+  background: color-mix(in oklab, var(--primary-color) 20%, transparent);
+}
+
+.card-couple {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 2.5vw, 2.1rem);
+  font-style: italic;
+  color: var(--primary-color);
+}
+
+.card-venue {
+  margin-top: 1rem;
+  max-width: 16rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.55;
+  color: var(--on-surface-variant-color);
+}
+
+.card-venue span {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.64rem;
+  opacity: 0.8;
+}
+
+.card-icons {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 1rem;
+  color: color-mix(in oklab, var(--primary-color) 45%, transparent);
+  font-size: 1rem;
+}
+
+.monogram-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  background: #ffffff;
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--primary-color) 18%, transparent);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.monogram-seal::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid color-mix(in oklab, var(--primary-color) 30%, transparent);
+  border-radius: 50%;
+}
+
+.monogram-seal span {
+  font-family: var(--font-heading);
+  color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.group:hover .envelope-flap,
+.envelope.is-opening .envelope-flap {
+  transform: rotateX(-170deg);
+  background-color: #ffffff;
+}
+
+.group:hover .invitation-card-inner,
+.envelope.is-opening .invitation-card-inner {
+  transform: translateY(-55%) scale(1.08);
+  opacity: 1;
+  box-shadow: 0 30px 60px -12px color-mix(in oklab, var(--primary-color) 26%, transparent);
+}
+
+.group:hover .monogram-seal,
+.envelope.is-opening .monogram-seal {
+  opacity: 0;
+  transform: translate(-50%, -100%) scale(0.8);
+}
+
+.group:hover .envelope,
+.envelope.is-opening {
+  transform: translateY(20px);
+}
+
+.interaction-hint {
+  transition: all 0.4s ease;
+}
+
+.group:hover .interaction-hint,
+.group.is-opening .interaction-hint {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.hint-line {
+  width: 3rem;
+  height: 1px;
+  background: color-mix(in oklab, var(--secondary-color) 22%, transparent);
+}
+
+.hint-text {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.hint-dot {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklab, var(--secondary-color) 20%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.35s;
+}
+
+.group:hover .hint-dot,
+.group.is-opening .hint-dot {
+  border-color: color-mix(in oklab, var(--secondary-color) 40%, transparent);
+}
+
+.hint-arrow {
+  color: color-mix(in oklab, var(--secondary-color) 70%, transparent);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.envelope-hint {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: color-mix(in oklab, var(--secondary-color) 86%, black 14%);
+}
+
+.invitation-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid color-mix(in oklab, var(--outline-variant-color) 55%, transparent);
+  background-color: color-mix(in oklab, var(--surface-container-low-color) 70%, white 30%);
+  box-shadow: 0 10px 24px -18px color-mix(in oklab, var(--primary-color) 24%, transparent);
+}
+
+.invitation-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface-color) 82%, transparent) 0%, transparent 40%);
+}
+
+.floral-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floral-corner {
+  position: absolute;
+  width: min(30vw, 14rem);
+  aspect-ratio: 1;
+  opacity: 0.34;
+  background:
+    radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--secondary-color) 42%, transparent) 0 24%, transparent 46%),
+    radial-gradient(circle at 68% 68%, color-mix(in oklab, var(--primary-color) 42%, transparent) 0 22%, transparent 44%);
+}
+
+.floral-top-left {
+  top: -4rem;
+  left: -4rem;
+}
+
+.floral-top-right {
+  top: -4rem;
+  right: -4rem;
+  transform: scaleX(-1);
+}
+
+.floral-bottom-left {
+  bottom: -4rem;
+  left: -4rem;
+  transform: scaleY(-1);
+}
+
+.floral-bottom-right {
+  right: -4rem;
+  bottom: -4rem;
+  transform: scale(-1);
+}
+
+@media (max-width: 640px) {
+  .hero-floral {
+    width: min(56vw, 16rem);
+    opacity: 0.35;
+  }
+
+  .invitation-card-inner {
+    padding: 0.8rem;
+  }
+
+  .invitation-card-frame {
+    padding: 1.1rem 0.85rem;
+  }
+
+  .card-note {
+    font-size: 0.54rem;
+  }
+
+  .card-venue {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
+
+  .card-venue span {
+    font-size: 0.58rem;
+  }
+
+  .hint-line {
+    width: 2.15rem;
+  }
+
+  .hint-text {
+    font-size: 0.54rem;
+    letter-spacing: 0.2em;
+  }
+}
